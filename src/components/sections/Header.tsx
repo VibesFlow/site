@@ -56,6 +56,23 @@ const Header: React.FC = () => {
     color: COLORS.secondary,
   };
 
+  const taglineStyle: React.CSSProperties = {
+    fontSize: FONT_SIZES.medium,
+    color: COLORS.primary,
+    fontWeight: 'bold',
+    marginBottom: SPACING.xs,
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    fontFamily: 'monospace',
+  };
+
+  const subtitleStyle: React.CSSProperties = {
+    fontSize: FONT_SIZES.small,
+    color: COLORS.textSecondary,
+    letterSpacing: '0.05em',
+    textTransform: 'uppercase',
+  };
+
   const buttonStyle: React.CSSProperties = {
     padding: '18px 24px',
     borderWidth: 1,
@@ -93,15 +110,14 @@ const Header: React.FC = () => {
           </h1>
 
           {/* Tagline */}
-          <GlitchText
-            text="CREATE DJ SETS WITH YOUR 'VIBES'"
-            style={{
-              fontSize: FONT_SIZES.medium,
-              color: COLORS.primary,
-              fontWeight: 'bold',
-            }}
-            intensity="low"
-          />
+          <div style={taglineStyle}>
+            CREATE DJ SETS WITH YOUR 'VIBES'
+          </div>
+
+          {/* Subtitle */}
+          <div style={subtitleStyle}>
+            MOTION-TO-MUSIC // COLLECTIVE RESONANCE // AUTONOMOUS WAVES
+          </div>
         </div>
       </div>
 

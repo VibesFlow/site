@@ -20,7 +20,7 @@ const VibeMarketPreview: React.FC = () => {
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % vibestreams.length);
-    }, 4000);
+    }, 6000); // Slower scrolling
 
     return () => clearInterval(interval);
   }, [vibestreams.length]);
@@ -46,24 +46,22 @@ const VibeMarketPreview: React.FC = () => {
     position: 'relative',
   };
 
-  const renderVibestreamCard = (stream: MockVibestream, index: number) => {
-    const isFirst = index === currentIndex;
-    const isSecond = index === (currentIndex + 1) % vibestreams.length;
-    
-    if (!isFirst && !isSecond) return null;
+  const cardsWrapperStyle: React.CSSProperties = {
+    display: 'flex',
+    transform: `translateX(-${currentIndex * 750}px)`, // 600px width + 150px gap
+    transition: 'transform 1s ease-in-out',
+    gap: '150px',
+  };
 
+  const renderVibestreamCard = (stream: MockVibestream, index: number) => {
     const cardStyle: React.CSSProperties = {
-      width: isFirst ? '600px' : '450px', // 75% for second card
+      width: '600px',
       height: '250px',
       backgroundColor: COLORS.backgroundLight,
       border: `1px solid ${COLORS.primary}40`,
       padding: SPACING.medium,
-      position: 'absolute',
-      left: isFirst ? '0px' : '620px', // 20px gap
-      top: '50%',
-      transform: 'translateY(-50%)',
-      transition: 'all 0.5s ease',
-      zIndex: isFirst ? 10 : 5,
+      position: 'relative',
+      flexShrink: 0,
     };
 
     const profileStyle: React.CSSProperties = {
@@ -97,6 +95,20 @@ const VibeMarketPreview: React.FC = () => {
       color: COLORS.textTertiary,
       letterSpacing: 2,
       textTransform: 'uppercase',
+    };
+
+    const playButtonStyle: React.CSSProperties = {
+      width: '40px',
+      height: '40px',
+      border: `2px solid ${COLORS.primary}`,
+      backgroundColor: 'transparent',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+      transition: 'all 0.2s ease',
+      fontSize: FONT_SIZES.large,
+      color: COLORS.primary,
     };
 
     const rtaStyle: React.CSSProperties = {
@@ -169,6 +181,19 @@ const VibeMarketPreview: React.FC = () => {
             <GlitchText text={stream.creator} style={creatorNameStyle} />
             <div style={creatorLabelStyle}>CREATOR</div>
           </div>
+          <button
+            style={playButtonStyle}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = COLORS.primary;
+              e.currentTarget.style.color = COLORS.background;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = COLORS.primary;
+            }}
+          >
+            ▶
+          </button>
         </div>
 
         <div>
@@ -229,7 +254,17 @@ const VibeMarketPreview: React.FC = () => {
       </p>
 
       <div style={cardsContainerStyle}>
-        {vibestreams.map((stream, index) => renderVibestreamCard(stream, index))}
+        {/* Clipping container to show 75% of second card */}
+        <div style={{ 
+          width: '900px', // 600px full + 75% of 600px (450px) = 1050px, but we clip to 900px
+          height: '100%',
+          overflow: 'hidden',
+          position: 'relative',
+        }}>
+          <div style={cardsWrapperStyle}>
+            {vibestreams.map((stream, index) => renderVibestreamCard(stream, index))}
+          </div>
+        </div>
       </div>
 
       <div style={{

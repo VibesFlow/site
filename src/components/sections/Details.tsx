@@ -73,15 +73,30 @@ const Details: React.FC = () => {
     flexDirection: 'column',
   };
 
+  const titleContainerStyle: React.CSSProperties = {
+    height: '80px', // Fixed height for title container
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: SPACING.lg,
+  };
+
   const cardTitleStyle: React.CSSProperties = {
     fontSize: FONT_SIZES.xl,
     fontWeight: 'bold',
     color: COLORS.textPrimary,
-    marginBottom: SPACING.lg,
     letterSpacing: '0.1em',
     textTransform: 'uppercase',
     fontFamily: 'monospace',
     textAlign: 'center',
+    lineHeight: 1.2,
+  };
+
+  const bodyContainerStyle: React.CSSProperties = {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
   };
 
   const descriptionStyle: React.CSSProperties = {
@@ -89,7 +104,6 @@ const Details: React.FC = () => {
     color: COLORS.textSecondary,
     lineHeight: 1.8,
     letterSpacing: '0.02em',
-    flex: 1,
   };
 
   const sectionTitleStyle: React.CSSProperties = {
@@ -139,19 +153,25 @@ const Details: React.FC = () => {
               }}
             />
             
-            <h3 style={{
-              ...cardTitleStyle,
-              color: getCardVariant(index),
-            }}>
-              {feature.title}
-            </h3>
-            
-            <div style={descriptionStyle}>
-              {feature.description.map((line, lineIndex) => (
-                <p key={lineIndex} style={{ marginBottom: SPACING.sm }}>
-                  {line}
-                </p>
-              ))}
+            {/* Title Container - fixed height for alignment */}
+            <div style={titleContainerStyle}>
+              <h3 style={{
+                ...cardTitleStyle,
+                color: getCardVariant(index),
+              }}>
+                {feature.title}
+              </h3>
+            </div>
+
+            {/* Body Container - flexible height */}
+            <div style={bodyContainerStyle}>
+              <div style={descriptionStyle}>
+                {feature.description.map((line, lineIndex) => (
+                  <p key={lineIndex} style={{ marginBottom: SPACING.sm }}>
+                    {line}
+                  </p>
+                ))}
+              </div>
             </div>
             
             <div
