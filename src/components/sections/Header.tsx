@@ -1,6 +1,6 @@
 import GlitchContainer from '../ui/GlitchContainer';
 import Button from '../ui/Button';
-import { COLORS, SPACING, BRAND } from '../../styles/theme';
+import { COLORS, SPACING, BRAND, BREAKPOINTS } from '../../styles/theme';
 
 const Header: React.FC = () => {
   const headerStyle: React.CSSProperties = {
@@ -11,29 +11,46 @@ const Header: React.FC = () => {
     justifyContent: 'center',
     position: 'relative',
     backgroundColor: COLORS.background,
-    padding: `${SPACING.xl}px ${SPACING.medium}px`,
+    padding: `${SPACING.lg}px ${SPACING.medium}px`,
   };
 
-  const rowContainerStyle: React.CSSProperties = {
-    width: '80%',
+  const containerStyle: React.CSSProperties = {
+    width: '100%',
     maxWidth: '1200px',
+    margin: '0 auto',
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: SPACING.xl,
+    gap: `${SPACING.xxl}px`,
   };
 
-  const leftSectionStyle: React.CSSProperties = {
+  const contentRowStyle: React.CSSProperties = {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: `${SPACING.xl}px`,
+  };
+
+  const brandSectionStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: `${SPACING.lg}px`,
+    textAlign: 'center',
+  };
+
+  const logoRowStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    width: '40%',
-    height: '8rem', 
+    justifyContent: 'center',
+    gap: `${SPACING.lg}px`,
+    flexWrap: 'wrap',
   };
 
   const logoStyle: React.CSSProperties = {
-    width: '6rem',
-    height: '6rem',
-    marginRight: SPACING.lg,
+    width: '4rem',
+    height: '4rem',
     flexShrink: 0,
   };
 
@@ -43,133 +60,180 @@ const Header: React.FC = () => {
     objectFit: 'contain',
   };
 
-  const vibesFlowStyle: React.CSSProperties = {
+  const brandTextStyle: React.CSSProperties = {
     display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
+    gap: '0.2em',
+    flexWrap: 'wrap',
     justifyContent: 'center',
-    height: '100%',
-    flex: 1,
   };
 
   const vibesStyle: React.CSSProperties = {
-    fontSize: '3.5rem',
+    fontSize: 'clamp(2rem, 8vw, 4rem)',
     fontWeight: 'bold',
     color: COLORS.primary,
     letterSpacing: '0.1em',
     textTransform: 'uppercase',
     fontFamily: 'monospace',
-    lineHeight: 0.9,
-    marginRight: '0.2em',
+    lineHeight: 1,
   };
 
   const flowStyle: React.CSSProperties = {
-    fontSize: '3.5rem',
+    fontSize: 'clamp(2rem, 8vw, 4rem)',
     fontWeight: 'bold',
     color: COLORS.secondary,
     letterSpacing: '0.1em',
     textTransform: 'uppercase',
     fontFamily: 'monospace',
-    lineHeight: 0.9,
+    lineHeight: 1,
   };
 
-  const rightSectionStyle: React.CSSProperties = {
+  const titleSectionStyle: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    width: '60%',
-    height: '8rem',
-    paddingLeft: SPACING.xl,
+    alignItems: 'center',
+    gap: `${SPACING.medium}px`,
+    textAlign: 'center',
+    maxWidth: '800px',
   };
 
   const titleStyle: React.CSSProperties = {
-    fontSize: '2rem',
+    fontSize: 'clamp(1.2rem, 4vw, 2rem)',
     color: COLORS.primary,
     fontWeight: 'bold',
     letterSpacing: '0.1em',
     textTransform: 'uppercase',
     fontFamily: 'monospace',
-    marginBottom: SPACING.sm,
     lineHeight: 1.2,
+    margin: 0,
   };
 
   const subtitleStyle: React.CSSProperties = {
-    fontSize: '1rem',
+    fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
     color: COLORS.textSecondary,
     letterSpacing: '0.05em',
     fontFamily: 'monospace',
     lineHeight: 1.4,
-  };
-
-  const buttonContainerStyle: React.CSSProperties = {
-    width: '80%',
-    maxWidth: '1200px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    margin: 0,
+    maxWidth: '600px',
   };
 
   const buttonStyle: React.CSSProperties = {
-    padding: '16px 24px',
+    padding: `${SPACING.medium}px ${SPACING.xl}px`,
     borderWidth: 2,
     borderColor: COLORS.primary,
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     position: 'relative',
-    fontSize: '1rem',
+    fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
     fontWeight: 'bold',
     letterSpacing: '1.5px',
     textTransform: 'uppercase',
     fontFamily: 'monospace',
+    minWidth: '140px',
   };
 
+  // Media query styles using CSS-in-JS approach
+  const responsiveStyles = `
+    @media (min-width: ${BREAKPOINTS.md}) {
+      .header-content-row {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+      }
+      
+      .header-brand-section {
+        flex: 1 1 45% !important;
+        text-align: left !important;
+        align-items: flex-start !important;
+      }
+      
+      .header-title-section {
+        flex: 1 1 55% !important;
+        text-align: right !important;
+        align-items: flex-end !important;
+        padding-left: ${SPACING.xl}px !important;
+      }
+      
+      .header-logo-row {
+        justify-content: flex-start !important;
+      }
+      
+      .header-logo {
+        width: 5rem !important;
+        height: 5rem !important;
+      }
+    }
+    
+    @media (min-width: ${BREAKPOINTS.lg}) {
+      .header-logo {
+        width: 6rem !important;
+        height: 6rem !important;
+      }
+    }
+    
+    @media (max-width: ${BREAKPOINTS.sm}) {
+      .header-brand-text {
+        flex-direction: column !important;
+        gap: 0.1em !important;
+      }
+      
+      .header-container {
+        gap: ${SPACING.lg}px !important;
+      }
+    }
+  `;
+
   return (
-    <GlitchContainer 
-      intensity="low" 
-      animated={false}
-      style={headerStyle}
-    >
-      {/* Main row with logo+vibesflow and title+subtitle */}
-      <div style={rowContainerStyle}>
-        {/* Left section: Logo + VibesFlow (40%) */}
-        <div style={leftSectionStyle}>
-          <div style={logoStyle}>
-            <img 
-              src="/assets/logo.png" 
-              alt="VibesFlow Logo" 
-              style={logoImageStyle}
-            />
+    <>
+      <style>{responsiveStyles}</style>
+      <GlitchContainer 
+        intensity="low" 
+        animated={false}
+        style={headerStyle}
+      >
+        <div style={containerStyle} className="header-container">
+          <div style={contentRowStyle} className="header-content-row">
+            {/* Brand section: Logo + VibesFlow */}
+            <div style={brandSectionStyle} className="header-brand-section">
+              <div style={logoRowStyle} className="header-logo-row">
+                <div style={logoStyle} className="header-logo">
+                  <img 
+                    src="/assets/logo.png" 
+                    alt="VibesFlow Logo" 
+                    style={logoImageStyle}
+                  />
+                </div>
+                <div style={brandTextStyle} className="header-brand-text">
+                  <span style={vibesStyle}>VIBES</span>
+                  <span style={flowStyle}>FLOW</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Title section: Tagline + Description */}
+            <div style={titleSectionStyle} className="header-title-section">
+              <h1 style={titleStyle}>
+                {BRAND.tagline.toUpperCase()}
+              </h1>
+              <p style={subtitleStyle}>
+                {BRAND.description}
+              </p>
+            </div>
           </div>
 
-          <div style={vibesFlowStyle}>
-            <div style={vibesStyle}>VIBES</div>
-            <div style={flowStyle}>FLOW</div>
-          </div>
+          {/* CTA Button */}
+          <Button
+            variant="primary"
+            size="lg"
+            href={BRAND.appDomain}
+            target="_blank"
+            style={buttonStyle}
+          >
+            TRY APP
+          </Button>
         </div>
-
-        {/* Right section: Title + Subtitle (60%) */}
-        <div style={rightSectionStyle}>
-          <div style={titleStyle}>
-            CREATE DJ SETS WITH YOUR 'VIBES'
-          </div>
-          <div style={subtitleStyle}>
-            VibesFlow is the first mobile-native app that lets you create music in real-time through your motion
-          </div>
-        </div>
-      </div>
-
-      {/* Button container - same width as main row */}
-      <div style={buttonContainerStyle}>
-        <Button
-          variant="primary"
-          size="lg"
-          href={BRAND.appDomain}
-          target="_blank"
-          style={buttonStyle}
-        >
-          TRY APP
-        </Button>
-      </div>
-    </GlitchContainer>
+      </GlitchContainer>
+    </>
   );
 };
 
