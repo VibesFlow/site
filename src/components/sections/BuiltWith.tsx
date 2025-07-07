@@ -230,7 +230,7 @@ const BuiltWith: React.FC = () => {
             color: COLORS.textSecondary,
             textTransform: 'uppercase',
           }}>
-            FILECOIN • FILCDN
+            FILECOIN • FILCDN • SYNAPSE
           </div>
         </div>
 
@@ -280,7 +280,7 @@ const BuiltWith: React.FC = () => {
             color: COLORS.textSecondary,
             textTransform: 'uppercase',
           }}>
-            LYRIA • SHADE • SYNAPSE
+            LYRIA • SHADE
           </div>
         </div>
       </div>

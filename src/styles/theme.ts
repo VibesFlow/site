@@ -59,7 +59,6 @@ export const BREAKPOINTS = {
 export const BRAND = {
   appName: "VIBESFLOW",
   slogan: "SYNTHESIZE · SYNCHRONIZE · TRANSCEND",
-  manifesto: "DECENTRALIZED FREQUENCIES // COLLECTIVE RESONANCE // AUTONOMOUS WAVES",
   name: 'VibesFlow',
   domain: 'https://vibesflow.ai',
   appDomain: 'https://app.vibesflow.ai',

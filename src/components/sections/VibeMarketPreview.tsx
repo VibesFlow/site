@@ -36,33 +36,47 @@ const VibeMarketPreview: React.FC = () => {
     position: 'relative',
   };
 
-  const cardsContainerStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
+  const carouselMainContainerStyle: React.CSSProperties = {
+    width: '80%',
     maxWidth: '1200px',
     height: '300px',
     overflow: 'hidden',
     position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
   };
 
   const cardsWrapperStyle: React.CSSProperties = {
     display: 'flex',
-    transform: `translateX(-${currentIndex * 750}px)`, // 600px width + 150px gap
+    transform: `translateX(-${currentIndex * 60}%)`, // Move by 60% (50% card + 10% gap)
     transition: 'transform 1s ease-in-out',
-    gap: '150px',
+    height: '100%',
   };
 
-  const renderVibestreamCard = (stream: MockVibestream, index: number) => {
+  const renderVibestreamCard = (stream: MockVibestream, isSecondCard: boolean = false) => {
     const cardStyle: React.CSSProperties = {
-      width: '600px',
+      width: isSecondCard ? '40%' : '50%', // 50% for first card, 40% for second
       height: '250px',
       backgroundColor: COLORS.backgroundLight,
       border: `1px solid ${COLORS.primary}40`,
       padding: SPACING.medium,
       position: 'relative',
       flexShrink: 0,
+      marginRight: isSecondCard ? '0' : '10%', // 10% gap after first card
+      opacity: isSecondCard ? 0.8 : 1,
     };
+
+    // Add fade effect for second card
+    const fadeOverlayStyle: React.CSSProperties = isSecondCard ? {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      width: '30%',
+      background: 'linear-gradient(to right, transparent, rgba(0,0,0,0.8))',
+      pointerEvents: 'none',
+      zIndex: 10,
+    } : {};
 
     const profileStyle: React.CSSProperties = {
       display: 'flex',
@@ -222,9 +236,23 @@ const VibeMarketPreview: React.FC = () => {
           <div style={filcdnTextStyle}>SYNAPSE SDK READY</div>
           <div style={filcdnIndicatorStyle} />
         </div>
+
+        {/* Fade overlay for second card */}
+        {isSecondCard && <div style={fadeOverlayStyle} />}
       </GlitchContainer>
     );
   };
+
+  const getVisibleCards = () => {
+    if (vibestreams.length === 0) return [];
+    
+    const firstCard = vibestreams[currentIndex];
+    const secondCard = vibestreams[(currentIndex + 1) % vibestreams.length];
+    
+    return [firstCard, secondCard];
+  };
+
+  const [firstCard, secondCard] = getVisibleCards();
 
   return (
     <section style={sectionStyle}>
@@ -253,17 +281,10 @@ const VibeMarketPreview: React.FC = () => {
         DISCOVER LIVE VIBESTREAMS FROM CREATORS WORLDWIDE
       </p>
 
-      <div style={cardsContainerStyle}>
-        {/* Clipping container to show 75% of second card */}
-        <div style={{ 
-          width: '900px', // 600px full + 75% of 600px (450px) = 1050px, but we clip to 900px
-          height: '100%',
-          overflow: 'hidden',
-          position: 'relative',
-        }}>
-          <div style={cardsWrapperStyle}>
-            {vibestreams.map((stream, index) => renderVibestreamCard(stream, index))}
-          </div>
+      <div style={carouselMainContainerStyle}>
+        <div style={cardsWrapperStyle}>
+          {firstCard && renderVibestreamCard(firstCard, false)}
+          {secondCard && renderVibestreamCard(secondCard, true)}
         </div>
       </div>
 
