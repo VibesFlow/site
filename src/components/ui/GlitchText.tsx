@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import { COLORS } from '../../styles/theme';
+import React, { useEffect, useState } from 'react';
 
 interface GlitchTextProps {
   text: string;
@@ -16,60 +15,80 @@ const GlitchText: React.FC<GlitchTextProps> = ({
   intensity = 'medium',
   animated = true,
 }) => {
-  const textRef = useRef<HTMLSpanElement>(null);
-  const [glitchText, setGlitchText] = useState(text);
+  const [displayText, setDisplayText] = useState(text);
+  const [isGlitching, setIsGlitching] = useState(false);
+
+  const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?~`';
+  
+  const getGlitchFrequency = () => {
+    switch (intensity) {
+      case 'low': return 100;
+      case 'medium': return 50;
+      case 'high': return 20;
+      default: return 50;
+    }
+  };
+
+  const createGlitchText = (originalText: string) => {
+    return originalText
+      .split('')
+      .map(char => {
+        if (char === ' ') return char;
+        const shouldGlitch = Math.random() < 0.3;
+        if (shouldGlitch) {
+          return glitchChars[Math.floor(Math.random() * glitchChars.length)];
+        }
+        return char;
+      })
+      .join('');
+  };
 
   useEffect(() => {
-    if (!animated || !textRef.current) return;
-
-    const intensityMap = {
-      low: { frequency: 5000, duration: 100 },
-      medium: { frequency: 3000, duration: 200 },
-      high: { frequency: 1000, duration: 300 },
-    };
-
-    const config = intensityMap[intensity];
+    if (!animated) return;
     
     const glitchInterval = setInterval(() => {
-      if (Math.random() < 0.1) { // 10% chance of glitch
-        const chars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-        const glitched = text
-          .split('')
-          .map((char) => {
-            if (Math.random() < 0.3) {
-              return chars[Math.floor(Math.random() * chars.length)];
-            }
-            return char;
-          })
-          .join('');
+      if (Math.random() < 0.1) { // 10% chance to glitch
+        setIsGlitching(true);
         
-        setGlitchText(glitched);
-        
+        // Create glitch sequence
+        const glitchSequence = [
+          createGlitchText(text),
+          createGlitchText(text),
+          text
+        ];
+
+        let step = 0;
+        const glitchStep = setInterval(() => {
+          setDisplayText(glitchSequence[step]);
+          step++;
+          
+          if (step >= glitchSequence.length) {
+            clearInterval(glitchStep);
+            setIsGlitching(false);
+          }
+        }, 80);
+
         setTimeout(() => {
-          setGlitchText(text);
-        }, config.duration);
+          clearInterval(glitchStep);
+          setDisplayText(text);
+          setIsGlitching(false);
+        }, 240);
       }
-    }, config.frequency);
+    }, getGlitchFrequency());
 
     return () => clearInterval(glitchInterval);
   }, [text, intensity, animated]);
 
-  const textStyle: React.CSSProperties = {
-    fontFamily: 'monospace',
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    letterSpacing: '0.1em',
-    color: COLORS.textPrimary,
-    ...style,
-  };
-
   return (
-    <span
-      ref={textRef}
-      className={`glitch-text ${className}`}
-      style={textStyle}
+    <span 
+      className={className}
+      style={{
+        ...style,
+        opacity: isGlitching ? 0.9 : 1,
+        fontFamily: 'monospace',
+      }}
     >
-      {glitchText}
+      {displayText}
     </span>
   );
 };

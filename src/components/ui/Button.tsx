@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { COLORS, SPACING } from '../../styles/theme';
+import { COLORS } from '../../styles/theme';
 
 interface ButtonProps {
   children: ReactNode;
@@ -24,72 +25,166 @@ const Button: React.FC<ButtonProps> = ({
   href,
   target,
 }) => {
-  const colorMap = {
-    primary: COLORS.primary,
-    secondary: COLORS.secondary,
-    accent: COLORS.accent,
+  const [isPressed, setIsPressed] = useState(false);
+  const [pulse, setPulse] = useState(1);
+
+  // Get colors based on variant
+  const getColors = () => {
+    switch(variant) {
+      case 'primary':
+        return {
+          border: COLORS.primary,
+          text: COLORS.primary,
+          glow: `rgba(0, 255, 65, ${isPressed ? 0.3 : 0.15})`,
+          shadow: 'rgba(0, 255, 65, 0.5)',
+        };
+      case 'secondary':
+        return {
+          border: COLORS.secondary,
+          text: COLORS.secondary,
+          glow: `rgba(255, 0, 160, ${isPressed ? 0.3 : 0.15})`,
+          shadow: 'rgba(255, 0, 160, 0.5)',
+        };
+      case 'accent':
+        return {
+          border: COLORS.accent,
+          text: COLORS.accent,
+          glow: `rgba(0, 204, 255, ${isPressed ? 0.3 : 0.15})`,
+          shadow: 'rgba(0, 204, 255, 0.5)',
+        };
+      default:
+        return {
+          border: COLORS.primary,
+          text: COLORS.primary,
+          glow: `rgba(0, 255, 65, ${isPressed ? 0.3 : 0.15})`,
+          shadow: 'rgba(0, 255, 65, 0.5)',
+        };
+    }
   };
 
-  const sizeMap = {
-    sm: { padding: `${SPACING.sm}px ${SPACING.medium}px`, fontSize: '0.875rem' },
-    md: { padding: `${SPACING.medium}px ${SPACING.lg}px`, fontSize: '1rem' },
-    lg: { padding: `${SPACING.lg}px ${SPACING.xl}px`, fontSize: '1.125rem' },
+  // Get padding based on size
+  const getPadding = () => {
+    switch(size) {
+      case 'sm':
+        return { vertical: 8, horizontal: 16 };
+      case 'md':
+        return { vertical: 12, horizontal: 24 };
+      case 'lg':
+        return { vertical: 16, horizontal: 32 };
+      default:
+        return { vertical: 12, horizontal: 24 };
+    }
   };
 
-  const color = colorMap[variant];
-  const sizing = sizeMap[size];
+  const colors = getColors();
+  const padding = getPadding();
+
+  // Pulse animation
+  useEffect(() => {
+    const pulseInterval = setInterval(() => {
+      setPulse(prev => prev === 1 ? 1.02 : 1);
+    }, 1500);
+
+    return () => clearInterval(pulseInterval);
+  }, []);
+
+  const handlePress = () => {
+    if (disabled || !onClick) return;
+    onClick();
+  };
 
   const buttonStyle: React.CSSProperties = {
+    position: 'relative',
+    border: `1px solid ${disabled ? COLORS.textTertiary : colors.border}`,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    color: disabled ? COLORS.textTertiary : colors.text,
+    fontFamily: 'monospace',
+    fontWeight: 'bold',
+    fontSize: size === 'sm' ? '14px' : size === 'lg' ? '18px' : '16px',
+    letterSpacing: '2px',
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+    cursor: disabled ? 'not-allowed' : 'pointer',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: sizing.padding,
-    fontSize: sizing.fontSize,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    letterSpacing: '0.1em',
-    color: disabled ? COLORS.textTertiary : color,
-    backgroundColor: 'transparent',
-    border: `1px solid ${disabled ? COLORS.textTertiary : color}`,
-    borderRadius: 0, // Sharp corners per style guide
-    cursor: disabled ? 'not-allowed' : 'pointer',
+    paddingTop: `${padding.vertical}px`,
+    paddingBottom: `${padding.vertical}px`,
+    paddingLeft: `${padding.horizontal}px`,
+    paddingRight: `${padding.horizontal}px`,
+    overflow: 'hidden',
+    transform: `scale(${pulse})`,
     transition: 'all 0.2s ease',
-    textDecoration: 'none',
-    boxShadow: disabled ? 'none' : `0 0 10px ${color}20`,
-    opacity: disabled ? 0.5 : 1,
-    fontFamily: 'monospace',
+    textShadow: isPressed ? `0 0 5px ${colors.shadow}` : 'none',
+    boxShadow: `0 0 0 ${colors.glow}`,
     ...style,
   };
 
-  const hoverStyle: React.CSSProperties = {
-    backgroundColor: disabled ? 'transparent' : `${color}10`,
-    boxShadow: disabled ? 'none' : `0 0 20px ${color}40`,
-    transform: disabled ? 'none' : 'translateY(-1px)',
+  const overlayStyle: React.CSSProperties = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: `linear-gradient(135deg, ${colors.glow}, transparent)`,
+    opacity: isPressed ? 1 : 0.5,
+    transition: 'opacity 0.2s ease',
+    pointerEvents: 'none',
   };
 
-  const Component = href ? 'a' : 'button';
+  const flashStyle: React.CSSProperties = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: colors.glow,
+    opacity: isPressed ? 0.2 : 0,
+    transition: 'opacity 0.1s ease',
+    pointerEvents: 'none',
+  };
+
+  const contentStyle: React.CSSProperties = {
+    position: 'relative',
+    zIndex: 2,
+  };
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={target}
+        className={className}
+        style={buttonStyle}
+        onMouseDown={() => setIsPressed(true)}
+        onMouseUp={() => setIsPressed(false)}
+        onMouseLeave={() => setIsPressed(false)}
+      >
+        <div style={overlayStyle} />
+        <div style={flashStyle} />
+        <div style={contentStyle}>
+          {children}
+        </div>
+      </a>
+    );
+  }
 
   return (
-    <Component
-      href={href}
-      target={target}
-      onClick={onClick}
-      disabled={disabled}
-      className={`vibes-button ${className}`}
+    <button
+      className={className}
       style={buttonStyle}
-      onMouseEnter={(e) => {
-        if (!disabled) {
-          Object.assign(e.currentTarget.style, hoverStyle);
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!disabled) {
-          Object.assign(e.currentTarget.style, buttonStyle);
-        }
-      }}
+      disabled={disabled}
+      onClick={handlePress}
+      onMouseDown={() => setIsPressed(true)}
+      onMouseUp={() => setIsPressed(false)}
+      onMouseLeave={() => setIsPressed(false)}
     >
-      {children}
-    </Component>
+      <div style={overlayStyle} />
+      <div style={flashStyle} />
+      <div style={contentStyle}>
+        {children}
+      </div>
+    </button>
   );
 };
 

@@ -1,68 +1,77 @@
-/* VibesFlow Global Styles */
+/* Reset and Base Styles */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background-color: #000000;
-  color: #ffffff;
-  font-family: 'Courier New', Courier, monospace;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
   overflow-x: hidden;
+  font-family: 'monospace', 'Courier New', monospace;
+  background: #000000;
+  color: #ffffff;
+  scroll-behavior: smooth;
+  /* Enhanced snap scroll */
+  scroll-snap-type: y mandatory;
+}
+
+html {
+  /* Better scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
 #root {
   min-height: 100vh;
-  width: 100%;
+  background: #000000;
+  position: relative;
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  margin: 0;
+  font-family: 'monospace', 'Courier New', monospace;
   font-weight: bold;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.2;
 }
 
 p {
-  margin: 0;
+  font-family: 'monospace', 'Courier New', monospace;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
 }
 
 /* Links */
 a {
-  color: #00ff41;
+  color: inherit;
   text-decoration: none;
-  transition: all 0.2s ease;
 }
 
 a:hover {
-  color: #ff00a0;
-  text-shadow: 0 0 10px #ff00a050;
+  transition: color 0.3s ease;
 }
 
 /* Buttons */
 button {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: inherit;
+  font-weight: bold;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  border: none;
+  background: none;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
+/* Focus and Accessibility */
 button:focus,
 a:focus {
   outline: 2px solid #00ff41;
   outline-offset: 2px;
 }
 
-/* Scrollbar */
+/* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -80,48 +89,71 @@ a:focus {
   background: #ff00a0;
 }
 
-/* Selection */
+/* Selection Styling */
 ::selection {
-  background-color: #00ff41;
+  background: #00ff41;
   color: #000000;
 }
 
 ::-moz-selection {
-  background-color: #00ff41;
+  background: #00ff41;
   color: #000000;
 }
 
-/* Responsive Images */
+/* Image Optimization */
 img {
   max-width: 100%;
   height: auto;
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
 }
 
-/* Animations */
+/* Enhanced Animations */
 @keyframes glitch {
-  0%, 100% {
-    transform: translate(0);
+  0% {
+    transform: translate(0, 0) skew(0deg);
+  }
+  10% {
+    transform: translate(-2px, 1px) skew(2deg);
   }
   20% {
-    transform: translate(-2px, 2px);
+    transform: translate(-1px, 0px) skew(-1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) skew(1deg);
   }
   40% {
-    transform: translate(-2px, -2px);
+    transform: translate(1px, -1px) skew(-2deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) skew(1deg);
   }
   60% {
-    transform: translate(2px, 2px);
+    transform: translate(-3px, 1px) skew(-1deg);
+  }
+  70% {
+    transform: translate(2px, 1px) skew(2deg);
   }
   80% {
-    transform: translate(2px, -2px);
+    transform: translate(-1px, -1px) skew(-1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) skew(1deg);
+  }
+  100% {
+    transform: translate(0, 0) skew(0deg);
   }
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0% {
     opacity: 1;
   }
   50% {
     opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -134,46 +166,84 @@ img {
   }
 }
 
-/* Utility Classes */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility Animation Classes */
 .glitch {
-  animation: glitch 0.3s ease-in-out infinite;
+  animation: glitch 0.3s ease-in-out;
 }
 
 .pulse {
-  animation: pulse 2s ease-in-out infinite;
+  animation: pulse 2s infinite;
 }
 
 .glow {
-  animation: glow 2s ease-in-out infinite;
+  animation: glow 2s ease-in-out infinite alternate;
 }
 
-/* Mobile Optimizations */
+.slide-in {
+  animation: slideIn 0.6s ease-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Enhanced Responsive Design */
 @media (max-width: 768px) {
-  body {
+  html {
     font-size: 14px;
   }
-  
+
   h1 {
     font-size: 2rem;
   }
-  
+
   h2 {
     font-size: 1.5rem;
   }
-  
+
   h3 {
     font-size: 1.25rem;
+  }
+
+  /* Mobile scroll snap */
+  body {
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
 /* High DPI Displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  body {
-    -webkit-font-smoothing: subpixel-antialiased;
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 }
 
-/* Reduce motion for accessibility */
+/* Motion Preference Handling */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -181,5 +251,77 @@ img {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .glitch,
+  .pulse,
+  .glow {
+    animation: none !important;
+  }
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Print Styles */
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+/* Performance Optimizations */
+* {
+  /* Promote frequently animated elements to composite layer */
+  will-change: auto;
+}
+
+/* Better font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+  font-feature-settings: "kern" 1;
+}
+
+/* Enhanced focus management */
+:focus-visible {
+  outline: 2px solid #00ff41;
+  outline-offset: 2px;
+}
+
+/* Dark mode enhancement (already dark, but for consistency) */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #000000;
+    color: #ffffff;
   }
 }
