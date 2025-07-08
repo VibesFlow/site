@@ -200,7 +200,6 @@ const BuiltWith: React.FC = () => {
   };
 
   const logoStyle = (index: number): React.CSSProperties => {
-    const isCenter = index === Math.floor(partners.length / 2);
     const isCurrent = index === currentIndex;
     
     return {

@@ -141,28 +141,28 @@ const Navigation: React.FC = () => {
             About
           </a>
           <a 
-            href="#features" 
+            href="#market" 
             style={linkStyle}
             onClick={(e) => {
               e.preventDefault();
-              scrollToSection('features');
+              scrollToSection('market');
             }}
             onMouseEnter={(e) => Object.assign(e.currentTarget.style, activeLinkStyle)}
             onMouseLeave={(e) => Object.assign(e.currentTarget.style, linkStyle)}
           >
-            Features
+            Market
           </a>
           <a 
-            href="#technology" 
+            href="#tech" 
             style={linkStyle}
             onClick={(e) => {
               e.preventDefault();
-              scrollToSection('technology');
+              scrollToSection('tech');
             }}
             onMouseEnter={(e) => Object.assign(e.currentTarget.style, activeLinkStyle)}
             onMouseLeave={(e) => Object.assign(e.currentTarget.style, linkStyle)}
           >
-            Technology
+            Tech
           </a>
           <Button 
             variant="primary" 
@@ -197,24 +197,24 @@ const Navigation: React.FC = () => {
           About
         </a>
         <a 
-          href="#features" 
+          href="#market" 
           style={{ ...linkStyle, fontSize: `${FONT_SIZES.lg}px` }}
           onClick={(e) => {
             e.preventDefault();
-            scrollToSection('features');
+            scrollToSection('market');
           }}
         >
-          Features
+          Market
         </a>
         <a 
-          href="#technology" 
+          href="#tech" 
           style={{ ...linkStyle, fontSize: `${FONT_SIZES.lg}px` }}
           onClick={(e) => {
             e.preventDefault();
-            scrollToSection('technology');
+            scrollToSection('tech');
           }}
         >
-          Technology
+          Tech
         </a>
         <Button 
           variant="primary" 

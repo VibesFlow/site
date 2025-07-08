@@ -37,17 +37,23 @@ function App() {
         <Header />
       </GlitchContainer>
       
-      <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
-        <Details />
-      </GlitchContainer>
+      <div id="about">
+        <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
+          <Details />
+        </GlitchContainer>
+      </div>
       
-      <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
-        <VibeMarketPreview />
-      </GlitchContainer>
+      <div id="market">
+        <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
+          <VibeMarketPreview />
+        </GlitchContainer>
+      </div>
       
-      <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
-        <BuiltWith />
-      </GlitchContainer>
+      <div id="tech">
+        <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
+          <BuiltWith />
+        </GlitchContainer>
+      </div>
       
       <div style={{
         height: '20vh', // Footer takes 20% of screen
