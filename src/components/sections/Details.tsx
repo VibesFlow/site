@@ -34,9 +34,10 @@ const Details: React.FC = () => {
     {
       title: "NFT Ownership",
       description: [
-        "Dynamic NFTs on NEAR Protocol with delegation support",
-        "Real-time metadata updates during live sessions",
-        "Provenance tracking for all audio chunks"
+        "Dynamic NFTs as Real-Time Assets that evolve on-chain",
+        "Stored on-chain for immutable proof of ownership",
+        "Decentralized delegation for live audio metadata updates",
+        "Provenance tracking for all audio chunks"        
       ],
       icon: "🎨"
     }
@@ -324,13 +325,13 @@ const Details: React.FC = () => {
           style={deeperDiveContainerStyle}
         >
           <GlitchText 
-            text="Technology Stack"
+            text="Technology Stack "
             style={deeperDiveTitleStyle}
             intensity="low"
           />
           
           <GlitchText
-            text="NEAR Protocol • Filecoin • Lyria RealTime • SynapseSDK • FilCDN • React Native"
+            text=" NEAR • Metis • Lyria RealTime • Filecoin • SynapseSDK • FilCDN"
             style={deeperDiveDescStyle}
             intensity="low"
           />

@@ -12,26 +12,26 @@ interface Partner {
 const BuiltWith: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const partners: Partner[] = [
+  const partners: Partner[] = [    
     {
-      name: 'NEAR Protocol',
-      logo: '/assets/partners/near.png',
-      description: 'Dynamic NFTs & Smart Contracts'
+      name: 'Metis',
+      logo: '/assets/partners/metis.png', 
+      description: 'Zero-Latency, AI-Powered Layer 2'
     },
     {
-      name: 'Filecoin',
-      logo: '/assets/partners/Filecoin.png', 
-      description: 'Decentralized Storage Network'
+      name: 'NEAR',
+      logo: '/assets/partners/near.png',
+      description: 'Non-EVM, Consumer-Centric Network'
     },
     {
       name: 'FilCDN',
       logo: '/assets/partners/filcdn.png',
-      description: 'Content Delivery Network'
+      description: 'Blazing Fast Content Delivery Network PDP'
     },
     {
       name: 'Synapse SDK',
       logo: '/assets/partners/synapsesdk.png',
-      description: 'Proof Data Possession'
+      description: 'Decentralized Storage on Filecoin'
     },
     {
       name: 'Lyria',
@@ -41,7 +41,7 @@ const BuiltWith: React.FC = () => {
     {
       name: 'Shade Agents',
       logo: '/assets/partners/shade-agents.png',
-      description: 'Autonomous Blockchain Workers'
+      description: 'Autonomous TEE Workers on-chain'
     }
   ];
 
@@ -212,7 +212,7 @@ const BuiltWith: React.FC = () => {
       transition: 'all 0.3s ease',
       flexShrink: 0, // Prevent shrinking
     };
-  };
+    };
 
   const partnerNameStyle = (index: number): React.CSSProperties => {
     const isCurrent = index === currentIndex;
@@ -298,23 +298,23 @@ const BuiltWith: React.FC = () => {
                 
                 <div style={{ position: 'relative', zIndex: 2 }}>
                   <div style={cardInternalContainerStyle}>
-                    <img
-                      src={partner.logo}
-                      alt={partner.name}
-                      style={logoStyle(index)}
-                    />
-                    
-                    <GlitchText
-                      text={partner.name}
-                      style={partnerNameStyle(index)}
-                      intensity={index === currentIndex ? 'medium' : 'low'}
-                    />
-                    
-                    <div style={descriptionCardStyle(index)}>
-                      {partner.description}
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    style={logoStyle(index)}
+                  />
+                  
+                  <GlitchText
+                    text={partner.name}
+                    style={partnerNameStyle(index)}
+                    intensity={index === currentIndex ? 'medium' : 'low'}
+                  />
+                  
+                  <div style={descriptionCardStyle(index)}>
+                    {partner.description}
                     </div>
-                  </div>
-                </div>
+          </div>
+        </div>
 
                 {/* Border glow effect */}
                 {index === currentIndex && (

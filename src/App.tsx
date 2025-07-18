@@ -38,21 +38,21 @@ function App() {
       </GlitchContainer>
       
       <div id="about">
-        <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
-          <Details />
-        </GlitchContainer>
+      <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
+        <Details />
+      </GlitchContainer>
       </div>
       
       <div id="market">
-        <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
-          <VibeMarketPreview />
-        </GlitchContainer>
+      <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
+        <VibeMarketPreview />
+      </GlitchContainer>
       </div>
       
       <div id="tech">
-        <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
-          <BuiltWith />
-        </GlitchContainer>
+      <GlitchContainer glitchOnly intensity="low" style={sectionStyle}>
+        <BuiltWith />
+      </GlitchContainer>
       </div>
       
       <div style={{

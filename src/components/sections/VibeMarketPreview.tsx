@@ -552,13 +552,13 @@ const VibeMarketPreview: React.FC = () => {
           style={deeperDiveContainerStyle}
         >
           <GlitchText 
-            text="Decentralized Music Marketplace"
+            text="Truly Sovereign Music Marketplace "
             style={deeperDiveTitleStyle}
             intensity="low"
           />
           
           <GlitchText
-            text="Every vibestream is permanently stored on Filecoin with cryptographic proofs, streamed through FilCDN for instant access, and represented as dynamic NFTs on NEAR Protocol."
+            text=" Every vibestream is permanently stored on Filecoin, streamed through FilCDN for instant access, and represented as dynamic NFTs on the blockchain for ownership and royalties."
             style={deeperDiveDescStyle}
             intensity="low"
           />

@@ -155,7 +155,7 @@ const Footer: React.FC = () => {
         <div style={rightSectionStyle}>
           <div style={linksContainerStyle}>            
             <a
-              href="https://github.com/vibesflow/docs"
+              href="https://github.com/VibesFlow/app/blob/main/README.md"
               target="_blank"
               rel="noopener noreferrer"
               style={linkStyle}
