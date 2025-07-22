@@ -16,7 +16,7 @@ const BuiltWith: React.FC = () => {
     {
       name: 'Metis',
       logo: '/assets/partners/metis.png', 
-      description: 'Zero-Latency, AI-Powered Layer 2'
+      description: 'L2 network with No-Latency Inference'
     },
     {
       name: 'NEAR',
@@ -26,7 +26,7 @@ const BuiltWith: React.FC = () => {
     {
       name: 'FilCDN',
       logo: '/assets/partners/filcdn.png',
-      description: 'Blazing Fast Content Delivery Network PDP'
+      description: 'Blazing Fast Content Delivery Network'
     },
     {
       name: 'Synapse SDK',
@@ -344,13 +344,13 @@ const BuiltWith: React.FC = () => {
           style={deeperDiveContainerStyle}
         >
           <GlitchText 
-            text="Decentralized Technology Stack"
+            text="Decentralized Technology Stack "
             style={deeperDiveTitleStyle}
             intensity="low"
           />
           
           <GlitchText
-            text="VibesFlow leverages the most advanced decentralized technologies to create a truly autonomous music generation platform. From blockchain smart contracts to AI-powered audio synthesis, every component is designed for maximum decentralization and user ownership."
+            text=" VibesFlow leverages decentralized technologies to create a truly autonomous music generation platform. From blockchain smart contracts to AI-powered audio synthesis, every component is designed for maximum decentralization and true user ownership."
             style={deeperDiveDescStyle}
             intensity="low"
           />
